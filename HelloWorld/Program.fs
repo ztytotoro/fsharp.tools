@@ -3,6 +3,7 @@
 open System
 open Model
 open Microsoft.EntityFrameworkCore
+open Microsoft.Extensions.DependencyInjection
 
 let add (path: string, ctx: AppContext) =
     ctx.Projects.Add(Project(Type = "", Path = path)) |> ignore
@@ -19,7 +20,12 @@ let get (str: string, ctx: AppContext) =
 [<EntryPoint>] 
 let main argv =
     use db = new AppContext()
-    db.Database.Migrate() |> ignore
+    
+    if(not(db.Database.EnsureCreated())) then
+        printfn "Table Not Exists"
+        -1
+    else
+
     match argv.[0] with
     | "get" -> get (argv.[1], db) |> printfn "%A"
     | "add" -> add (argv.[1], db)

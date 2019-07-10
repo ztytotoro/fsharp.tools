@@ -18,9 +18,10 @@ type ProjectType() =
 
 type AppContext() =
     inherit DbContext()
+
     member val Projects : DbSet<Project> = null with get, set
     member val ProjectTypes : DbSet<ProjectType> = null with get, set
 
-    override _u.OnConfiguring(optionsBuilder : DbContextOptionsBuilder) =
+    override this.OnConfiguring(optionsBuilder : DbContextOptionsBuilder) =
         optionsBuilder.UseSqlite "Data Source=data.db"
         |> ignore
