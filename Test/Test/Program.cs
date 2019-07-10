@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
 
@@ -10,20 +11,14 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            using (var db = new AppContext())
-            {
-                if (!db.Database.EnsureCreated())
-                {
-                    Console.WriteLine("Table Not Exists");
-                    return;
-                }
+            using var db = new AppContext();
+            db.Database.EnsureCreated();
 
-                switch (args[0])
-                {
-                    case "get": Get(args[1], db);break;
-                    case "add": Add(args[1], db);break;
-                    default:break;
-                }
+            switch (args[0])
+            {
+                case "get": Console.WriteLine(JsonSerializer.ToString(Get(args[1], db))); break;
+                case "add": Add(args[1], db); break;
+                default: break;
             }
         }
 
@@ -34,6 +29,7 @@ namespace Test
                 Type = "",
                 Path = path
             });
+            ctx.SaveChanges();
         }
 
         static List<Project> Get(string str, AppContext ctx)

@@ -2,7 +2,7 @@
   "profiles": {
     "Test": {
       "commandName": "Project",
-      "commandLineArgs": "add D:\\Repos\\GitHub\\fsharp.tools\\HelloWorld\\bin\\Debug\\netcoreapp3.0"
+      "commandLineArgs": "get netcoreapp"
     }
   }
 }

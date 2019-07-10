@@ -21,10 +21,7 @@ let get (str: string, ctx: AppContext) =
 let main argv =
     use db = new AppContext()
     
-    if(not(db.Database.EnsureCreated())) then
-        printfn "Table Not Exists"
-        -1
-    else
+    db.Database.EnsureCreated() |> ignore
 
     match argv.[0] with
     | "get" -> get (argv.[1], db) |> printfn "%A"
