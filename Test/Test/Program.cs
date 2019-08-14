@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -16,7 +17,7 @@ namespace Test
 
             switch (args[0])
             {
-                case "get": Console.WriteLine(JsonSerializer.ToString(Get(args[1], db))); break;
+                case "get": Console.WriteLine(JsonSerializer.Serialize(Get(args[1], db))); break;
                 case "add": Add(args[1], db); break;
                 default: break;
             }
